@@ -27,5 +27,11 @@ void vectorIndexAcess(){
             std::cerr << err.what() << "\n" ;
         }
     }
+}
 
+void vectorSizes(){
+    Vector emptyVector;
+    Vector zeroVector1(1);
+    
+    std::cout << emptyVector.size() << ", " << zeroVector1.size() << "\n";
 }

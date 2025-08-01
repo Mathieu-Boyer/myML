@@ -5,6 +5,7 @@
 int main()
 {
     // vectorConstructions();
-    vectorIndexAcess();
+    // vectorIndexAcess();
+    // vectorSizes();
     return 0;
 }

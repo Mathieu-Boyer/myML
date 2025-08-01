@@ -3,3 +3,4 @@
 
 void vectorConstructions();
 void vectorIndexAcess();
+void vectorSizes();

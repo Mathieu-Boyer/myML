@@ -16,5 +16,6 @@ public:
     float &operator[](size_t index);
     float operator[](size_t index) const;
 
+    size_t size();
     void print();
 };

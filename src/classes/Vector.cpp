@@ -28,6 +28,10 @@ float Vector::operator[](size_t index) const{
     return data[index];
 }
 
+size_t Vector::size(){
+    return data.size();
+}
+
 
 void Vector::print(){
     std::cout << "[ " ;
