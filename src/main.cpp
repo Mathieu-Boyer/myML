@@ -8,5 +8,8 @@ int main()
     // vectorIndexAcess();
     // vectorSizes();
     // vectorOperators();
+
+    // dot();
+    // norm();
     return 0;
 }
