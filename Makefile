@@ -1,4 +1,3 @@
-# Compiler and flags
 CXX := g++
 CXXFLAGS :=  -std=c++23 -Iincludes -MMD -MP -Wall -Wextra -Werror
 
