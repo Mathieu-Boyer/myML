@@ -49,3 +49,19 @@ void vectorOperators(){
     (vec1 * 3).print();
     (vec1 / 3).print();
 }
+
+void dot(){
+    Vector vec1(9, 1);
+    Vector vec2({1,2,3,4,5,6,7,8,9});
+
+    std::cout << (vec1 * vec2) << "\n";
+}
+
+
+void norm(){
+    Vector vec({0, 0, 7});
+    Vector vec2({3, 4});
+
+    std::cout << vec.norm() << "\n";
+    std::cout << vec2.norm() << "\n";
+}

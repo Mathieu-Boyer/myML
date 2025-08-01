@@ -16,6 +16,10 @@ Vector::Vector(const std::vector<float> &toCopy){
     data = toCopy;
 }
 
+Vector::Vector(std::initializer_list<float> init){
+    data = init;
+}
+
 float &Vector::operator[](size_t index){
     if (index >= data.size())
         throw std::logic_error("The provided index is too high.");
@@ -31,7 +35,6 @@ float Vector::operator[](size_t index) const{
 size_t Vector::size() const{
     return data.size();
 }
-
 
 Vector Vector::operator+(const Vector& rhs){
     if (this->size() != rhs.size())
@@ -70,6 +73,32 @@ Vector Vector::operator/(const float rhs){
     return newVector;
 }
 
+float Vector::operator*(const Vector& rhs){
+    return this->dot(rhs);
+}
+
+float Vector::dot(const Vector& rhs) const{
+    if (this->size() != rhs.size())
+        throw std::logic_error("Vector sizes do not match.");
+    
+    float product = 0;
+    for (size_t i = 0; i < this->size(); ++i){
+        product += (*this)[i] * rhs[i];
+    }
+
+    return product;
+}
+
+
+float Vector::norm() const{
+    float sum = 0;
+
+    for (auto &component : data){
+        sum += component * component;
+    }
+
+    return std::sqrt(sum);
+}
 
 
 void Vector::print(){
