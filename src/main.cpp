@@ -4,7 +4,7 @@
 
 int main()
 {
-
-    vectorConstructions();
+    // vectorConstructions();
+    vectorIndexAcess();
     return 0;
 }

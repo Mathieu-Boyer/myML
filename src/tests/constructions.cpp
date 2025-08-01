@@ -13,3 +13,19 @@ void vectorConstructions(){
     twoVectorCpy.print();
     vectorContentCpy.print();
 }
+
+void vectorIndexAcess(){
+    Vector emptyVector;
+    Vector zeroVector1(1);
+    const Vector zeroVector2(1);
+    std::vector<Vector> vectorsToTest = {emptyVector, zeroVector1, zeroVector2};
+
+    for (auto &vect : vectorsToTest){
+        try {
+            std::cout << vect[0] << "\n";
+        }catch (std::exception &err){
+            std::cerr << err.what() << "\n" ;
+        }
+    }
+
+}
