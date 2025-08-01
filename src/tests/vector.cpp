@@ -35,3 +35,17 @@ void vectorSizes(){
     
     std::cout << emptyVector.size() << ", " << zeroVector1.size() << "\n";
 }
+
+void vectorOperators(){
+    Vector vec1(9, 1);
+    Vector vec2({1,2,3,4,5,6,7,8,9});
+
+    vec1.print();
+    vec2.print();
+    std::cout << "------------------------------------------------------------------------------------\n";
+
+    (vec1 + vec2).print();
+    (vec1 - vec2).print();
+    (vec1 * 3).print();
+    (vec1 / 3).print();
+}
