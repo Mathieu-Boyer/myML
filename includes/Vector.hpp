@@ -17,12 +17,13 @@ public:
     float &operator[](size_t index);
     float operator[](size_t index) const;
 
-    Vector operator+(const Vector& rhs);
-    Vector operator-(const Vector& rhs);
-    Vector operator*(const float rhs);
-    Vector operator/(const float rhs);
-    float operator*(const Vector& rhs);
+    Vector operator+(const Vector& rhs) const;
+    Vector operator-(const Vector& rhs)const;
+    Vector operator*(const float rhs)const;
+    Vector operator/(const float rhs)const;
+    float operator*(const Vector& rhs)const;
 
+    Vector normalize() const;
     float dot(const Vector& rhs) const;
     float norm() const;
     size_t size() const;

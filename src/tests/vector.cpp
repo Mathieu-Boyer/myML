@@ -65,3 +65,11 @@ void norm(){
     std::cout << vec.norm() << "\n";
     std::cout << vec2.norm() << "\n";
 }
+
+void normalize(){
+    Vector vec({0, 0, 7});
+    Vector vec2({-3, 4});
+
+    vec.normalize().print();
+    vec2.normalize().print();
+}
