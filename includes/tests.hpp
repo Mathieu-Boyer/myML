@@ -7,3 +7,4 @@ void vectorSizes();
 void vectorOperators();
 void dot();
 void norm();
+void normalize();

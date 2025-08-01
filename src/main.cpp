@@ -11,5 +11,6 @@ int main()
 
     // dot();
     // norm();
+    normalize();
     return 0;
 }
