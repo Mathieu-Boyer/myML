@@ -13,5 +13,9 @@ public:
     Vector(const std::vector<float> &toCopy);
     ~Vector() = default;
 
+    float &operator[](size_t index);
+    float operator[](size_t index) const;
+
+    size_t size();
     void print();
 };
