@@ -17,6 +17,7 @@ int main()
 
     // -------- matrices ----------
     // matrixConstruction();
+    MatrixAcess();
 
     return 0;
 }

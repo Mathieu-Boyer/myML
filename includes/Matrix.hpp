@@ -15,6 +15,8 @@ public:
     Matrix(const Matrix &toCopy) = default;
     ~Matrix() = default;
 
+    float &operator()(size_t rows, size_t columns);
+    float operator()(size_t rows, size_t columns) const;
 
     void print();
 };
