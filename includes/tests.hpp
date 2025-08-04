@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector.hpp"
+#include "Tensor.hpp"
 #include "Matrix.hpp"
 
 void vectorConstructions();
@@ -16,3 +17,4 @@ void MatrixAcess();
 void MatrixOperations();
 void MatrixScalarOperations();
 void MatMul();
+void tensorConstructions();
