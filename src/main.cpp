@@ -1,9 +1,11 @@
 #include "Vector.hpp"
+#include "Matrix.hpp"
 
 #include "tests.hpp"
 
 int main()
 {
+    // -------- vectors ----------
     // vectorConstructions();
     // vectorIndexAcess();
     // vectorSizes();
@@ -11,6 +13,10 @@ int main()
 
     // dot();
     // norm();
-    normalize();
+    // normalize();
+
+    // -------- matrices ----------
+    // matrixConstruction();
+
     return 0;
 }
