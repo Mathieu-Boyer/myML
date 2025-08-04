@@ -11,3 +11,5 @@ void norm();
 void normalize();
 
 void matrixConstruction();
+
+void MatrixAcess();
