@@ -5,6 +5,11 @@ Matrix::Matrix(size_t rows, size_t columns) : _columns(columns), _rows(rows) {
     data.resize(_rows * _columns);
 }
 
+Matrix::Matrix(size_t rows, size_t columns, const std::vector<float> &data) : data(data) , _columns(columns), _rows(rows) {
+    if (data.size() != _columns * _rows)
+        throw std::logic_error("Invalid number of element given for the shape of this matrix.");
+}
+
 Matrix::Matrix(size_t rows, size_t columns, float value) : _columns(columns), _rows(rows) {
     data.resize(_rows * _columns);
     for (auto& element : data)
@@ -79,3 +84,15 @@ Matrix Matrix::operator/(const float &rhs) const{
     return resultMatrix;
 }
 
+Matrix Matrix::operator*(const Matrix &rhs) const{
+    if (this->_columns != rhs._rows)
+        throw std::logic_error("Shapes do not match for a matrix multiplication.");
+
+    Matrix resultMatrix(this->_rows, rhs._columns);
+
+    for (size_t i = 0 ; i < this->_rows; i++)
+        for (size_t j = 0 ; j < rhs._columns; j++)
+            for (size_t k = 0 ; k < this->_columns; k++)
+                resultMatrix(i,j) += (*this)(i,k) * rhs(k,j);
+    return resultMatrix;
+}
