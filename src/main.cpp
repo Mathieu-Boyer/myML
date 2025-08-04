@@ -24,5 +24,7 @@ int main()
 
     // -------- tensors ----------
     // tensorConstructions();
+    // tensorStatics();
+
     return 0;
 }
