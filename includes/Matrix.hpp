@@ -18,6 +18,9 @@ public:
     float &operator()(size_t rows, size_t columns);
     float operator()(size_t rows, size_t columns) const;
 
+    Matrix operator+(const Matrix &rhs) const;
+    Matrix operator-(const Matrix &rhs) const;
+
     void print();
 };
 

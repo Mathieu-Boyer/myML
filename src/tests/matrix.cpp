@@ -20,3 +20,14 @@ void MatrixAcess(){
 
     willChange.print();
 }
+
+
+
+void MatrixOperations(){
+
+    (Matrix(2,4, 1) - Matrix(2,4, 1)).print();
+    (Matrix(2,4, 1) - Matrix(2,4, .5)).print();
+
+    (Matrix(2,4, 1) + Matrix(2,4, 1)).print();
+    (Matrix(2,4, 1) + Matrix(2,4, .5)).print();
+}

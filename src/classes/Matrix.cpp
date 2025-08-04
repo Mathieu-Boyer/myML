@@ -37,3 +37,25 @@ float Matrix::operator()(size_t x, size_t y) const{
 
     return (data[x * _columns + y]);
 }
+
+Matrix Matrix::operator+(const Matrix &rhs) const{
+    if ((this->_columns != rhs._columns )|| (this->_rows != rhs._rows))
+        throw std::logic_error("Matrices shapes do not match.");
+
+    Matrix resultMatrix(this->_rows, this->_columns);
+    for (size_t i = 0; i < data.size(); i++)
+        resultMatrix.data[i] = this->data[i] + rhs.data[i];
+
+    return resultMatrix;
+}
+
+Matrix Matrix::operator-(const Matrix &rhs) const{
+    if ((this->_columns != rhs._columns )|| (this->_rows != rhs._rows))
+        throw std::logic_error("Matrices shapes do not match.");
+
+    Matrix resultMatrix(this->_rows, this->_columns);
+    for (size_t i = 0; i < data.size(); i++)
+        resultMatrix.data[i] = this->data[i] - rhs.data[i];
+
+    return resultMatrix;
+}
