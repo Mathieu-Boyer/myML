@@ -14,3 +14,4 @@ void matrixConstruction();
 
 void MatrixAcess();
 void MatrixOperations();
+void MatrixScalarOperations();
