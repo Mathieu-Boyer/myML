@@ -15,3 +15,4 @@ void matrixConstruction();
 void MatrixAcess();
 void MatrixOperations();
 void MatrixScalarOperations();
+void MatMul();

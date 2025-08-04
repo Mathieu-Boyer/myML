@@ -19,6 +19,7 @@ int main()
     // matrixConstruction();
     // MatrixAcess();
     // MatrixOperations();
-    MatrixScalarOperations();
+    // MatrixScalarOperations();
+    MatMul();
     return 0;
 }

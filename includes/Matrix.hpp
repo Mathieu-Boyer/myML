@@ -12,6 +12,7 @@ public:
     Matrix();
     Matrix(size_t rows, size_t columns);
     Matrix(size_t rows, size_t columns, float value);
+    Matrix(size_t rows, size_t columns, const std::vector<float> &data);
     Matrix(const Matrix &toCopy) = default;
     ~Matrix() = default;
 
@@ -22,6 +23,8 @@ public:
     Matrix operator-(const Matrix &rhs) const;
     Matrix operator*(const float &rhs) const;
     Matrix operator/(const float &rhs) const;
+
+    Matrix operator*(const Matrix &rhs) const;
 
     void print();
 };

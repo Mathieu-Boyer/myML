@@ -35,3 +35,15 @@ void MatrixOperations(){
 void MatrixScalarOperations(){
     ((Matrix(2,4, 3) * 3) / 3).print();
 }
+
+void MatMul(){
+    Matrix A(2,4, {1,2,3,4,5,6,8,9});
+    Matrix B(3,2, {7,8,9,10,11,12});
+
+
+    A.print();
+    B.print();
+
+    std::cout << "------------\n" ;
+    (B * A).print();
+}
