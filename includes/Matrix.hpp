@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <iostream>
-
+#include "Vector.hpp"
 class Matrix
 {
 private:
@@ -25,6 +25,8 @@ public:
     Matrix operator/(const float &rhs) const;
 
     Matrix operator*(const Matrix &rhs) const;
+
+    Matrix operator*(const Vector &rhs) const;
 
     void print();
 };
