@@ -20,6 +20,9 @@ int main()
     // MatrixAcess();
     // MatrixOperations();
     // MatrixScalarOperations();
-    MatMul();
+    // MatMul();
+
+    // -------- tensors ----------
+    // tensorConstructions();
     return 0;
 }

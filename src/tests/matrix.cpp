@@ -47,3 +47,8 @@ void MatMul(){
     std::cout << "------------\n" ;
     (B * A).print();
 }
+
+void tensorConstructions(){
+    Tensor({1, 4, 3, 3}, {1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9}).print();
+    Tensor({1, 4, 3, 3}, 2).print();
+}
