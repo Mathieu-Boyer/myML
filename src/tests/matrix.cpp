@@ -31,3 +31,7 @@ void MatrixOperations(){
     (Matrix(2,4, 1) + Matrix(2,4, 1)).print();
     (Matrix(2,4, 1) + Matrix(2,4, .5)).print();
 }
+
+void MatrixScalarOperations(){
+    ((Matrix(2,4, 3) * 3) / 3).print();
+}

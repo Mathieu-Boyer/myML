@@ -59,3 +59,23 @@ Matrix Matrix::operator-(const Matrix &rhs) const{
 
     return resultMatrix;
 }
+
+
+Matrix Matrix::operator*(const float &rhs) const{
+    Matrix resultMatrix(*this);
+
+    for (auto &element :resultMatrix.data)
+        element *= rhs;
+    return resultMatrix;
+}
+
+Matrix Matrix::operator/(const float &rhs) const{
+    if (rhs == 0)
+        throw std::logic_error("Cannot divide by 0");
+    Matrix resultMatrix(*this);
+
+    for (auto &element :resultMatrix.data)
+        element /= rhs;
+    return resultMatrix;
+}
+

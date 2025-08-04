@@ -20,6 +20,8 @@ public:
 
     Matrix operator+(const Matrix &rhs) const;
     Matrix operator-(const Matrix &rhs) const;
+    Matrix operator*(const float &rhs) const;
+    Matrix operator/(const float &rhs) const;
 
     void print();
 };
