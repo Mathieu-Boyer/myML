@@ -52,3 +52,10 @@ void tensorConstructions(){
     Tensor({1, 4, 3, 3}, {1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9,1,2,3,4,5,6,7,8,9}).print();
     Tensor({1, 4, 3, 3}, 2).print();
 }
+
+void tensorStatics(){
+    Tensor::matrix(3, 3, 2).print();
+    Tensor::vector(3).print();
+    Tensor::zeros({1,2,3,4}).print();
+    Tensor::ones({1,2,3,4}).print();
+}

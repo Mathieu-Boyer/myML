@@ -18,3 +18,4 @@ void MatrixOperations();
 void MatrixScalarOperations();
 void MatMul();
 void tensorConstructions();
+void tensorStatics();

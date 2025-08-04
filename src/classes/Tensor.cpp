@@ -1,5 +1,26 @@
 #include "Tensor.hpp"
 
+
+Tensor Tensor::vector(size_t size, float fill){
+    return Tensor({size}, fill);
+}
+Tensor Tensor::matrix(size_t rows, size_t columns, float fill){
+    return Tensor({rows, columns}, fill);
+}
+Tensor Tensor::zeros(const std::vector<size_t>& shape){
+    return Tensor(shape, 0);
+}
+Tensor Tensor::ones(const std::vector<size_t>& shape){
+    return Tensor(shape, 1);
+}
+// Tensor Tensor::identity(size_t size){
+//     Tensor identity({size}, 0);
+
+//     for (size_t i = 0; i < size; i++)
+//         identity(i,i) = 0;
+// } i'll do this one when i will have element acessors.
+
+
 Tensor::Tensor() : _data({}), _shape({}), _strides({}){}
 
 Tensor::Tensor(std::vector<size_t> shape) : _shape(shape){
@@ -77,10 +98,23 @@ void Tensor::print(size_t nest, size_t index) const{
         size_t new_index = index + i * _strides[nest];
         print(nest + 1, new_index);
     }
-    std::cout << "]";
+
     nest != _shape.size() - 1 ? (printSpaces(nest), std::cout << "],\n") : ( std::cout << "]");
+}
+
+
+size_t Tensor::ndim() const{
+    return _shape.size();
 }
 
 void Tensor::print() const{
     print(0,0);
+}
+
+bool Tensor::isVector() const{
+    return _shape.size() == 1;
+}
+
+bool Tensor::isMatrix() const{
+    return _shape.size() == 2;
 }
