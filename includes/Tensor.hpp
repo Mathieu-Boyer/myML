@@ -61,6 +61,8 @@ public:
 
     Tensor matmul(const Tensor &rhs) const;
 
+    Tensor transpose(const std::vector<size_t> &order = {}) const;
+
 
     // ------------ Statics ---------------- //
     static Tensor vector(size_t size, float fill = 0.0f);

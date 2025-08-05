@@ -1,6 +1,5 @@
 #include "Tensor.hpp"
 
-
 Tensor Tensor::vector(size_t size, float fill){
     return Tensor({size}, fill);
 }
@@ -109,6 +108,11 @@ size_t Tensor::ndim() const{
 void Tensor::print() const{
     std::cout << "Shape : [ ";
     for (auto &s : _shape)
+        std::cout << s << " ";
+    std::cout << "]\n";
+
+    std::cout << "Strides : [ ";
+    for (auto &s : _strides)
         std::cout << s << " ";
     std::cout << "]\n";
 
@@ -312,10 +316,11 @@ Tensor Tensor::matmul(const Tensor &rhs) const{
 
     if (A_batch != B_batch)
         throw std::logic_error("Broadcasting is not implemented yet, so tensors batch have to be the same for matmul.");
-    
+
     size_t batchSize = 1;
     for (auto &batchElement : A_batch)
         batchSize *= batchElement;
+
     for (size_t i = 0; i < batchSize ; i++){
         const std::vector<float> &matrixData = getMatrixAtBatchOffset(flatIndexToShapeIndex(i, A_batch)).matmul2D(rhs.getMatrixAtBatchOffset(flatIndexToShapeIndex(i, B_batch)))._data;
         newTensorData.insert(newTensorData.end(), matrixData.begin(), matrixData.end());
@@ -327,4 +332,30 @@ Tensor Tensor::matmul(const Tensor &rhs) const{
     newTensorShape[newTensorShape.size()-1] = rhs._shape[rhs._shape.size() - 1];
 
     return Tensor(newTensorShape, newTensorData);
+}
+
+
+Tensor Tensor::transpose(const std::vector<size_t> &order) const{
+    if (this->isVector())
+        throw std::logic_error("Vectors can't be transposed.");
+    
+    if (order.empty()){
+        Tensor transposed(std::vector<size_t>(_shape.rbegin(), _shape.rend()), _data);
+        transposed._strides = std::vector<size_t>(_strides.rbegin(), _strides.rend());
+        return transposed;
+    }
+    if (order.size() != _shape.size())
+        throw std::logic_error("Invalid axis order.");
+    std::vector<size_t> newOrder(_shape.size());
+    std::vector<size_t> newStrides(_strides.size());
+
+    newOrder.resize(_shape.size());
+    for (size_t i = 0; i < order.size(); i++){
+        newOrder[i] = _shape.at(order[i]);
+        newStrides[i] = _strides.at(order[i]);
+    }
+    
+    Tensor transposed(newOrder, _data);
+    transposed._strides = newStrides;
+    return transposed;
 }
