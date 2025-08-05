@@ -186,3 +186,70 @@ float Tensor::operator()(std::vector<size_t> indices) const{
         index += indices[i] * _strides[i];
     return(_data[index]);
 }
+
+Tensor Tensor::operator+(const Tensor &rhs) const{
+    Tensor newTensor(*this);
+
+    for (size_t i = 0; i < newTensor._data.size(); i++)
+        newTensor._data[i] += rhs._data[i];
+
+    return newTensor;
+}
+Tensor Tensor::operator-(const Tensor &rhs) const{
+    Tensor newTensor(*this);
+
+    for (size_t i = 0; i < newTensor._data.size(); i++)
+        newTensor._data[i] -= rhs._data[i];
+
+    return newTensor;
+}
+Tensor Tensor::operator*(const Tensor &rhs) const{
+    Tensor newTensor(*this);
+
+    for (size_t i = 0; i < newTensor._data.size(); i++)
+        newTensor._data[i] *= rhs._data[i];
+
+    return newTensor;
+}
+Tensor Tensor::operator/(const Tensor &rhs) const{
+    Tensor newTensor(*this);
+
+    for (size_t i = 0; i < newTensor._data.size(); i++)
+        newTensor._data[i] /= rhs._data[i];
+
+    return newTensor;
+}
+
+Tensor Tensor::operator+(const float &rhs) const{
+    Tensor newTensor(*this);
+
+    for (size_t i = 0; i < newTensor._data.size(); i++)
+        newTensor._data[i] += rhs;
+
+    return newTensor;
+}
+Tensor Tensor::operator-(const float &rhs) const{
+    Tensor newTensor(*this);
+
+    for (size_t i = 0; i < newTensor._data.size(); i++)
+        newTensor._data[i] -= rhs;
+
+    return newTensor;
+}
+
+Tensor Tensor::operator*(const float &rhs) const{
+    Tensor newTensor(*this);
+
+    for (size_t i = 0; i < newTensor._data.size(); i++)
+        newTensor._data[i] *= rhs;
+
+    return newTensor;
+}
+Tensor Tensor::operator/(const float &rhs) const{
+    Tensor newTensor(*this);
+
+    for (size_t i = 0; i < newTensor._data.size(); i++)
+        newTensor._data[i] /= rhs;
+
+    return newTensor;
+}
