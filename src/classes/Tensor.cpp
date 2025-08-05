@@ -359,3 +359,51 @@ Tensor Tensor::transpose(const std::vector<size_t> &order) const{
     transposed._strides = newStrides;
     return transposed;
 }
+
+Tensor Tensor::sum(size_t axis) const {
+    if (axis >= _shape.size())
+        throw std::logic_error("Axis out of bounds");
+    std::vector<size_t> outShape;
+    for (size_t i = 0; i < _shape.size(); ++i) {
+        if (i != axis)
+            outShape.push_back(_shape[i]);
+    }
+    Tensor result(outShape);
+    for (size_t flatIndex = 0; flatIndex < _data.size(); ++flatIndex) {
+        std::vector<size_t> fullIndex = flatIndexToShapeIndex(flatIndex, _shape);
+        std::vector<size_t> reducedIndex;
+        for (size_t i = 0; i < fullIndex.size(); ++i)
+            if (i != axis)
+                reducedIndex.push_back(fullIndex[i]);
+
+        result(reducedIndex) += _data[flatIndex];
+    }
+    return result;
+}
+
+float Tensor::sumFloat() const {
+    float sum = 0;
+    for (auto &element : _data)
+        sum += element;
+    return sum;
+}
+
+float Tensor::meanFloat() const {
+    return sumFloat() / _data.size();
+}
+
+
+Tensor Tensor::sum() const {
+    float sum = 0;
+    for (auto &element : _data)
+        sum += element;
+    return Tensor({1}, sum);
+}
+
+Tensor Tensor::mean() const {
+    return Tensor({1}, sumFloat() / _data.size());
+}
+
+Tensor Tensor::mean(size_t axis) const{
+    return sum(axis) / _shape[axis];
+}

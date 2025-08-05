@@ -62,7 +62,13 @@ public:
     Tensor matmul(const Tensor &rhs) const;
 
     Tensor transpose(const std::vector<size_t> &order = {}) const;
-
+    Tensor sum(size_t axis) const;
+    Tensor mean(size_t axis) const;
+    
+    Tensor sum() const ;
+    Tensor mean() const ;
+    float sumFloat() const ;
+    float meanFloat() const ;
 
     // ------------ Statics ---------------- //
     static Tensor vector(size_t size, float fill = 0.0f);
