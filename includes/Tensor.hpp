@@ -19,6 +19,8 @@ private:
     void print(size_t nest, size_t index) const;
     bool indicesOutOfBound(const std::vector<size_t> &indices) const;
 
+    Tensor matmul2D(const Tensor &rhs) const;
+    Tensor getMatrixAtBatchOffset(const std::vector<size_t>& batchIndex) const;
 public:
     Tensor();
     Tensor(std::vector<size_t> shape);
@@ -56,6 +58,9 @@ public:
     size_t ndim() const;
     bool isVector() const;
     bool isMatrix() const;
+
+    Tensor matmul(const Tensor &rhs) const;
+
 
     // ------------ Statics ---------------- //
     static Tensor vector(size_t size, float fill = 0.0f);
