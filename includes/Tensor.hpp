@@ -14,7 +14,7 @@ private:
 
     size_t shapeProduct() const;
     size_t stridesProduct() const;
-
+    size_t shapeProduct(const std::vector<size_t>&shape) const;
 
     void print(size_t nest, size_t index) const;
     bool indicesOutOfBound(const std::vector<size_t> &indices) const;
@@ -69,6 +69,8 @@ public:
     Tensor mean() const ;
     float sumFloat() const ;
     float meanFloat() const ;
+
+    Tensor reshape(const std::vector<size_t> &newShape) const ;
 
     // ------------ Statics ---------------- //
     static Tensor vector(size_t size, float fill = 0.0f);

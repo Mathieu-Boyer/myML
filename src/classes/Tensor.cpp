@@ -68,6 +68,13 @@ size_t Tensor::shapeProduct() const{
     return totalElements;
 }
 
+size_t Tensor::shapeProduct(const std::vector<size_t>&shape) const{
+    size_t totalElements = 1;
+    for (auto &s : shape)
+        totalElements *= s;
+    return totalElements;
+}
+
 size_t Tensor::stridesProduct() const{
     size_t totalElements = 1;
     for (auto &s : _strides)
@@ -406,4 +413,11 @@ Tensor Tensor::mean() const {
 
 Tensor Tensor::mean(size_t axis) const{
     return sum(axis) / _shape[axis];
+}
+
+Tensor Tensor::reshape(const std::vector<size_t> &newShape) const {
+    if (shapeProduct() != shapeProduct(newShape))
+        throw std::logic_error("Invalid new shape.");
+
+    return (Tensor(newShape, _data));
 }
