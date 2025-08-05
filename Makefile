@@ -1,5 +1,5 @@
 CXX := g++
-CXXFLAGS :=  -std=c++23 -Iincludes -MMD -MP -Wall -Wextra -Werror
+CXXFLAGS :=  -std=c++23 -Iincludes -MMD -MP -Wall -Wextra -Werror -O3
 
 SRC_DIR := src
 INC_DIR := includes
