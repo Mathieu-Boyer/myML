@@ -27,23 +27,37 @@ public:
     Tensor(const Tensor &toCopy) = default;
     ~Tensor() = default;
 
-    void fill(float value);
-    void print() const;
-    size_t ndim() const;
 
-    bool isVector() const;
-    bool isMatrix() const;
 
+    // ------------ Operators -------------- //
     float &operator()(const size_t index);
     float operator()(const size_t index) const;
-
     float &operator()(size_t rows, size_t columns);
     float operator()(size_t rows, size_t columns) const;
-
     float &operator()(std::vector<size_t> indices);
     float operator()(std::vector<size_t> indices) const;
 
+    Tensor operator+(const Tensor &rhs) const;
+    Tensor operator-(const Tensor &rhs) const;
+    Tensor operator*(const Tensor &rhs) const;
+    Tensor operator/(const Tensor &rhs) const;
 
+
+    Tensor operator+(const float &rhs) const;
+    Tensor operator-(const float &rhs) const;
+    Tensor operator*(const float &rhs) const;
+    Tensor operator/(const float &rhs) const;
+
+
+    // ------------ Memberfunctions -------- //
+
+    void fill(float value);
+    void print() const;
+    size_t ndim() const;
+    bool isVector() const;
+    bool isMatrix() const;
+
+    // ------------ Statics ---------------- //
     static Tensor vector(size_t size, float fill = 0.0f);
     static Tensor matrix(size_t rows, size_t cols, float fill = 0.0f);
     static Tensor zeros(const std::vector<size_t>& shape);

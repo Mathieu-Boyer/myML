@@ -27,8 +27,20 @@ int main()
     // tensorStatics();
 
     // Tensor::identity(2).print();
-    Tensor test({1,2,3}, {1,2,3,4,5,6});
+    Tensor test({2, 2, 3, 3}, {    1, 2, 3, 4, 5, 6, 7, 8, 9,
+    1, 2, 3, 4, 5, 6, 7, 8, 9,
+    1, 2, 3, 4, 5, 6, 7, 8, 9,
+    1, 2, 3, 4, 5, 6, 7, 8, 9});
     test.print();
-    std::cout << (test({0,0,0})) << "\n";
+    (test + test).print();
+    (test - test).print();
+    (test * test).print();
+    (test / test).print();
+
+
+    (test + 1).print();
+    (test - 1).print();
+    (test * 2).print();
+    (test / 2).print();
     return 0;
 }
