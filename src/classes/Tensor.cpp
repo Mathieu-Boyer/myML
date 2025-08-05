@@ -13,12 +13,13 @@ Tensor Tensor::zeros(const std::vector<size_t>& shape){
 Tensor Tensor::ones(const std::vector<size_t>& shape){
     return Tensor(shape, 1);
 }
-// Tensor Tensor::identity(size_t size){
-//     Tensor identity({size}, 0);
+Tensor Tensor::identity(size_t size){
+    Tensor identity({size, size}, 0);
 
-//     for (size_t i = 0; i < size; i++)
-//         identity(i,i) = 0;
-// } i'll do this one when i will have element acessors.
+    for (size_t i = 0; i < size; i++)
+        identity(i,i) = 1;
+    return identity;
+} //i'll do this one when i will have element acessors.
 
 
 Tensor::Tensor() : _data({}), _shape({}), _strides({}){}
@@ -108,6 +109,11 @@ size_t Tensor::ndim() const{
 }
 
 void Tensor::print() const{
+    std::cout << "Shape : [ ";
+    for (auto &s : _shape)
+        std::cout << s << " ";
+    std::cout << "]\n";
+
     print(0,0);
 }
 
@@ -117,4 +123,66 @@ bool Tensor::isVector() const{
 
 bool Tensor::isMatrix() const{
     return _shape.size() == 2;
+}
+
+float &Tensor::operator()(const size_t index){
+    if (index >= _data.size())
+        throw std::logic_error("Index provided is out of range.");
+    return(_data[index]);
+}
+float Tensor::operator()(const size_t index) const{
+    if (index >= _data.size())
+        throw std::logic_error("Index provided is out of range.");
+    return(_data[index]);
+}
+
+float &Tensor::operator()(size_t rows, size_t columns){
+    if (!this->isMatrix())
+        throw std::logic_error("Current tensor is not a matrix.");
+    if (rows >= this->_shape[0])
+        throw std::logic_error("Row provided is out of range.");
+    if (columns >= this->_shape[0])
+        throw std::logic_error("Column provided is out of range.");
+    return(_data[rows * _strides[0] + columns]);
+}
+float Tensor::operator()(size_t rows, size_t columns) const{
+    if (!this->isMatrix())
+        throw std::logic_error("Current tensor is not a matrix.");
+    if (rows >= this->_shape[0])
+        throw std::logic_error("Row provided is out of range.");
+    if (columns >= this->_shape[0])
+        throw std::logic_error("Column provided is out of range.");
+    return(_data[rows * _strides[0] + columns]);
+}
+
+bool Tensor::indicesOutOfBound(const std::vector<size_t> &indices) const{
+    for (size_t i = 0; i < indices.size(); i++){
+        if (indices[i] >= _shape[i]){
+            return true;
+        }
+
+    }
+    return false;
+}
+
+float &Tensor::operator()(std::vector<size_t> indices){
+
+    if (indicesOutOfBound(indices))
+        throw std::logic_error("provided is out of range.");
+
+    size_t index = 0;
+    for (size_t i = 0; i < indices.size(); i++)
+        index += indices[i] * _strides[i];
+    return(_data[index]);
+}
+
+float Tensor::operator()(std::vector<size_t> indices) const{
+
+    if (indicesOutOfBound(indices))
+        throw std::logic_error("provided is out of range.");
+
+    size_t index = 0;
+    for (size_t i = 0; i < indices.size(); i++)
+        index += indices[i] * _strides[i];
+    return(_data[index]);
 }
