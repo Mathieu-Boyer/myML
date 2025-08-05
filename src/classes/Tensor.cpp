@@ -421,3 +421,26 @@ Tensor Tensor::reshape(const std::vector<size_t> &newShape) const {
 
     return (Tensor(newShape, _data));
 }
+
+
+Tensor Tensor::log() const {
+    Tensor outTensor(*this);
+    for (size_t i = 0; i < _data.size(); i++){
+        outTensor._data[i] = std::log(std::max(_data[i], __FLT_EPSILON__));
+    }
+    return outTensor;
+}
+Tensor Tensor::exp() const {
+    Tensor outTensor(*this);
+    for (size_t i = 0; i < _data.size(); i++){
+        outTensor._data[i] = std::exp(_data[i]);
+    }
+    return outTensor;
+}
+Tensor Tensor::abs() const {
+    Tensor outTensor(*this);
+    for (size_t i = 0; i < _data.size(); i++){
+        outTensor._data[i] = std::abs(_data[i]);
+    }
+    return outTensor;
+}

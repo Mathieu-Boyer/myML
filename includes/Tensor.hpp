@@ -72,6 +72,12 @@ public:
 
     Tensor reshape(const std::vector<size_t> &newShape) const ;
 
+
+    Tensor log() const;
+    Tensor exp() const;
+    Tensor abs() const;
+
+
     // ------------ Statics ---------------- //
     static Tensor vector(size_t size, float fill = 0.0f);
     static Tensor matrix(size_t rows, size_t cols, float fill = 0.0f);
