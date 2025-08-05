@@ -17,6 +17,7 @@ private:
 
 
     void print(size_t nest, size_t index) const;
+    bool indicesOutOfBound(const std::vector<size_t> &indices) const;
 
 public:
     Tensor();
@@ -32,6 +33,15 @@ public:
 
     bool isVector() const;
     bool isMatrix() const;
+
+    float &operator()(const size_t index);
+    float operator()(const size_t index) const;
+
+    float &operator()(size_t rows, size_t columns);
+    float operator()(size_t rows, size_t columns) const;
+
+    float &operator()(std::vector<size_t> indices);
+    float operator()(std::vector<size_t> indices) const;
 
 
     static Tensor vector(size_t size, float fill = 0.0f);
