@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <iostream>
+#include <random>
 
 class Tensor
 {
@@ -84,5 +85,7 @@ public:
     static Tensor zeros(const std::vector<size_t>& shape);
     static Tensor ones(const std::vector<size_t>& shape);
     static Tensor identity(size_t size);
+    static Tensor random_uniform(const std::vector<size_t>& shape, float min = 0.0f, float max = 1.0f, unsigned int seed = 0);
+    static Tensor random_normal(const std::vector<size_t>& shape, float mean = 0.0f, float std = 1.0f, unsigned int seed = 0);
 };
 
