@@ -1,5 +1,28 @@
 #include "Tensor.hpp"
 
+std::vector<size_t> flatIndexToShapeIndex(size_t flat, const std::vector<size_t> &shape){
+    std::vector<size_t> shapeIndex;
+    shapeIndex.resize(shape.size());
+
+    for (int i = shape.size() - 1; i >= 0; i--){
+        shapeIndex[i] = flat % shape[i];
+        flat /= shape[i];
+    }
+
+    return shapeIndex;
+}
+
+size_t ndimIndexFlatIndex(const std::vector<size_t> &ndimIndex, const std::vector<size_t> &strides){
+    size_t flatIndex = 0;
+
+    for (size_t i = 0; i < ndimIndex.size(); i++)
+        flatIndex += ndimIndex[i] * strides[i];
+    return flatIndex;
+}
+
+
+
+
 Tensor Tensor::vector(size_t size, float fill){
     return Tensor({size}, fill);
 }
@@ -203,6 +226,34 @@ bool Tensor::indicesOutOfBound(const std::vector<size_t> &indices) const{
     return false;
 }
 
+Tensor Tensor::broadCast(const Tensor &main, const Tensor &broadCasted) const {
+    if (main.shape().size() != broadCasted.shape().size())
+        throw std::logic_error("Tensor cannot be broadcasted.");
+
+    const auto &mainShape = main.shape();
+    const auto &bShape = broadCasted.shape();
+    std::vector<size_t> newShape(mainShape.size());
+    for (size_t i = 0; i < newShape.size(); ++i) {
+        if (mainShape[i] != bShape[i] && bShape[i] != 1)
+            throw std::logic_error("Broadcasting dimensions incompatible.");
+        newShape[i] = mainShape[i];
+    }
+    Tensor result(newShape);
+    for (size_t i = 0; i < result.size(); ++i) {
+        auto idx = flatIndexToShapeIndex(i, newShape);
+        auto idxB = idx;
+
+        for (size_t d = 0; d < newShape.size(); ++d)
+            if (bShape[d] == 1)
+                idxB[d] = 0;
+
+        size_t flatB = ndimIndexFlatIndex(idxB, broadCasted._strides);
+        result(i) = broadCasted(flatB);
+    }
+
+    return result;
+}
+
 float &Tensor::operator()(std::vector<size_t> indices){
 
     if (indicesOutOfBound(indices))
@@ -226,8 +277,14 @@ float Tensor::operator()(std::vector<size_t> indices) const{
 }
 
 Tensor Tensor::operator+(const Tensor &rhs) const{
-    if (this->_shape != rhs._shape)
-        throw std::logic_error("Invalid shape for this operation.");
+    if (this->_shape != rhs._shape){
+        Tensor b_broadcasted = broadCast(*this, rhs);
+        Tensor result(*this);
+        for (size_t i = 0; i < result.size(); ++i)
+            result._data[i] += b_broadcasted._data[i];
+        return result;
+    }
+
     Tensor newTensor(*this);
     for (size_t i = 0; i < newTensor._data.size(); i++)
         newTensor._data[i] += rhs._data[i];
@@ -245,8 +302,13 @@ Tensor &Tensor::operator+=(const Tensor &rhs) {
 }
 
 Tensor Tensor::operator-(const Tensor &rhs) const{
-    if (this->_shape != rhs._shape)
-        throw std::logic_error("Invalid shape for this operation.");
+    if (this->_shape != rhs._shape){
+        Tensor b_broadcasted = broadCast(*this, rhs);
+        Tensor result(*this);
+        for (size_t i = 0; i < result.size(); ++i)
+            result._data[i] -= b_broadcasted._data[i];
+        return result;
+    }
     Tensor newTensor(*this);
 
     for (size_t i = 0; i < newTensor._data.size(); i++)
@@ -265,8 +327,13 @@ Tensor &Tensor::operator-=(const Tensor &rhs) {
 }
 
 Tensor Tensor::operator*(const Tensor &rhs) const{
-    if (this->_shape != rhs._shape)
-        throw std::logic_error("Invalid shape for this operation.");
+    if (this->_shape != rhs._shape){
+        Tensor b_broadcasted = broadCast(*this, rhs);
+        Tensor result(*this);
+        for (size_t i = 0; i < result.size(); ++i)
+            result._data[i] *= b_broadcasted._data[i];
+        return result;
+    }
     Tensor newTensor(*this);
 
     for (size_t i = 0; i < newTensor._data.size(); i++)
@@ -285,8 +352,13 @@ Tensor &Tensor::operator*=(const Tensor &rhs) {
 }
 
 Tensor Tensor::operator/(const Tensor &rhs) const{
-    if (this->_shape != rhs._shape)
-        throw std::logic_error("Invalid shape for this operation.");
+    if (this->_shape != rhs._shape){
+        Tensor b_broadcasted = broadCast(*this, rhs);
+        Tensor result(*this);
+        for (size_t i = 0; i < result.size(); ++i)
+            result._data[i] /= b_broadcasted._data[i];
+        return result;
+    }
     Tensor newTensor(*this);
 
     for (size_t i = 0; i < newTensor._data.size(); i++)
@@ -404,17 +476,6 @@ Tensor Tensor::matmul2D(const Tensor &rhs) const{
     return resultMatrix;
 }
 
-std::vector<size_t> flatIndexToShapeIndex(size_t flat, const std::vector<size_t> &shape){
-    std::vector<size_t> shapeIndex;
-    shapeIndex.resize(shape.size());
-
-    for (int i = shape.size() - 1; i >= 0; i--){
-        shapeIndex[i] = flat % shape[i];
-        flat /= shape[i];
-    }
-
-    return shapeIndex;
-}
 
 Tensor Tensor::matmul(const Tensor &rhs) const{
     if (this->isVector() || rhs.isVector())
