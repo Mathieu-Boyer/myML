@@ -27,12 +27,14 @@ int main()
     // tensorStatics();
 
     // Tensor::identity(2).print();
-    Tensor test1({1, 2, 3, 4}, { -1, 2, 3, 4, 5, 6, 7, 8, 9,
-    10, 11, 12, 13, 14, 15, 16, 17, 18,
-    19, 20, 21, 22, 23, 24});
+    // Tensor test1({1, 2, 3, 4}, { 1, 2, 3, 4, 5, 6, 7, 8, 9,
+    // 10, 11, 12, 13, 14, 15, 16, 17, 18,
+    // 19, 20, 21, 22, 23, 24});
 
-    Tensor::random_uniform({2,2,2,2}, -.5, .5).print();
-    Tensor::random_normal({2,2,2,2}, -.5, .5).print();
+
+    // test1.print();
+    // Tensor::random_uniform({2,2,2,2}, -.5, .5).print();
+    // Tensor::random_normal({2,2,2,2}, -.5, .5).print();
     // test1.abs().print();
 
     // test1.print();

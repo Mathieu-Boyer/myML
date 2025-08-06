@@ -45,12 +45,21 @@ public:
     Tensor operator*(const Tensor &rhs) const;
     Tensor operator/(const Tensor &rhs) const;
 
-
     Tensor operator+(const float &rhs) const;
     Tensor operator-(const float &rhs) const;
     Tensor operator*(const float &rhs) const;
     Tensor operator/(const float &rhs) const;
 
+
+    Tensor &operator+=(const Tensor &rhs);
+    Tensor &operator-=(const Tensor &rhs);
+    Tensor &operator*=(const Tensor &rhs);
+    Tensor &operator/=(const Tensor &rhs);
+
+    Tensor &operator+=(const float &rhs);
+    Tensor &operator-=(const float &rhs);
+    Tensor &operator*=(const float &rhs);
+    Tensor &operator/=(const float &rhs);
 
     // ------------ Memberfunctions -------- //
 
@@ -77,6 +86,11 @@ public:
     Tensor log() const;
     Tensor exp() const;
     Tensor abs() const;
+
+    size_t size() const;
+    const std::vector<size_t> &shape() const;
+
+
 
 
     // ------------ Statics ---------------- //
