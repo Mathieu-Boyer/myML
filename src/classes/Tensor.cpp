@@ -226,14 +226,27 @@ float Tensor::operator()(std::vector<size_t> indices) const{
 }
 
 Tensor Tensor::operator+(const Tensor &rhs) const{
+    if (this->_shape != rhs._shape)
+        throw std::logic_error("Invalid shape for this operation.");
     Tensor newTensor(*this);
-
     for (size_t i = 0; i < newTensor._data.size(); i++)
         newTensor._data[i] += rhs._data[i];
 
     return newTensor;
 }
+
+Tensor &Tensor::operator+=(const Tensor &rhs) {
+    if (this->_shape != rhs._shape)
+        throw std::logic_error("Invalid shape for this operation.");
+    for (size_t i = 0; i < _data.size(); i++)
+        _data[i] += rhs._data[i];
+
+    return *this;
+}
+
 Tensor Tensor::operator-(const Tensor &rhs) const{
+    if (this->_shape != rhs._shape)
+        throw std::logic_error("Invalid shape for this operation.");
     Tensor newTensor(*this);
 
     for (size_t i = 0; i < newTensor._data.size(); i++)
@@ -241,7 +254,19 @@ Tensor Tensor::operator-(const Tensor &rhs) const{
 
     return newTensor;
 }
+
+Tensor &Tensor::operator-=(const Tensor &rhs) {
+    if (this->_shape != rhs._shape)
+        throw std::logic_error("Invalid shape for this operation.");
+    for (size_t i = 0; i < _data.size(); i++)
+        _data[i] -= rhs._data[i];
+
+    return *this;
+}
+
 Tensor Tensor::operator*(const Tensor &rhs) const{
+    if (this->_shape != rhs._shape)
+        throw std::logic_error("Invalid shape for this operation.");
     Tensor newTensor(*this);
 
     for (size_t i = 0; i < newTensor._data.size(); i++)
@@ -249,13 +274,33 @@ Tensor Tensor::operator*(const Tensor &rhs) const{
 
     return newTensor;
 }
+
+Tensor &Tensor::operator*=(const Tensor &rhs) {
+    if (this->_shape != rhs._shape)
+        throw std::logic_error("Invalid shape for this operation.");
+    for (size_t i = 0; i < _data.size(); i++)
+        _data[i] *= rhs._data[i];
+
+    return *this;
+}
+
 Tensor Tensor::operator/(const Tensor &rhs) const{
+    if (this->_shape != rhs._shape)
+        throw std::logic_error("Invalid shape for this operation.");
     Tensor newTensor(*this);
 
     for (size_t i = 0; i < newTensor._data.size(); i++)
-        newTensor._data[i] /= rhs._data[i];
-
+        newTensor._data[i] /= (rhs._data[i] == 0)? __FLT_EPSILON__ : rhs._data[i];
     return newTensor;
+}
+
+Tensor &Tensor::operator/=(const Tensor &rhs) {
+    if (this->_shape != rhs._shape)
+        throw std::logic_error("Invalid shape for this operation.");
+    for (size_t i = 0; i < _data.size(); i++)
+        _data[i] /= (rhs._data[i] == 0)? __FLT_EPSILON__ : rhs._data[i];
+
+    return *this;
 }
 
 Tensor Tensor::operator+(const float &rhs) const{
@@ -266,6 +311,14 @@ Tensor Tensor::operator+(const float &rhs) const{
 
     return newTensor;
 }
+
+Tensor &Tensor::operator+=(const float &rhs) {
+    for (size_t i = 0; i < _data.size(); i++)
+        _data[i] += rhs;
+
+    return *this;
+}
+
 Tensor Tensor::operator-(const float &rhs) const{
     Tensor newTensor(*this);
 
@@ -273,6 +326,13 @@ Tensor Tensor::operator-(const float &rhs) const{
         newTensor._data[i] -= rhs;
 
     return newTensor;
+}
+
+Tensor &Tensor::operator-=(const float &rhs) {
+    for (size_t i = 0; i < _data.size(); i++)
+        _data[i] -= rhs;
+
+    return *this;
 }
 
 Tensor Tensor::operator*(const float &rhs) const{
@@ -283,7 +343,17 @@ Tensor Tensor::operator*(const float &rhs) const{
 
     return newTensor;
 }
+
+Tensor &Tensor::operator*=(const float &rhs) {
+    for (size_t i = 0; i < _data.size(); i++)
+        _data[i] *= rhs;
+
+    return *this;
+}
+
 Tensor Tensor::operator/(const float &rhs) const{
+    if (rhs == 0)
+        throw std::logic_error("Dividing the tensor by 0.");
     Tensor newTensor(*this);
 
     for (size_t i = 0; i < newTensor._data.size(); i++)
@@ -292,8 +362,16 @@ Tensor Tensor::operator/(const float &rhs) const{
     return newTensor;
 }
 
+Tensor &Tensor::operator/=(const float &rhs) {
+    if (rhs == 0)
+        throw std::logic_error("Dividing the tensor by 0.");
+    for (size_t i = 0; i < _data.size(); i++)
+        _data[i] /= rhs;
+
+    return *this;
+}
+
 Tensor Tensor::getMatrixAtBatchOffset(const std::vector<size_t>& batchIndex) const {
-    // Compute flat offset using batch index
     size_t batchOffset = 0;
 
     if (batchIndex.size() > 0)
@@ -459,6 +537,7 @@ Tensor Tensor::log() const {
     }
     return outTensor;
 }
+
 Tensor Tensor::exp() const {
     Tensor outTensor(*this);
     for (size_t i = 0; i < _data.size(); i++){
@@ -466,10 +545,19 @@ Tensor Tensor::exp() const {
     }
     return outTensor;
 }
+
 Tensor Tensor::abs() const {
     Tensor outTensor(*this);
     for (size_t i = 0; i < _data.size(); i++){
         outTensor._data[i] = std::abs(_data[i]);
     }
     return outTensor;
+}
+
+size_t Tensor::size() const{
+    return _data.size();
+}
+
+const std::vector<size_t> &Tensor::shape() const{
+    return _shape;
 }
