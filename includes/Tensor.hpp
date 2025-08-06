@@ -22,6 +22,7 @@ private:
 
     Tensor matmul2D(const Tensor &rhs) const;
     Tensor getMatrixAtBatchOffset(const std::vector<size_t>& batchIndex) const;
+    Tensor broadCast(const Tensor &main, const Tensor &broadCasted) const ;
 public:
     Tensor();
     Tensor(std::vector<size_t> shape);

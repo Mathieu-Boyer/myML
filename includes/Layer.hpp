@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Tensor.hpp"
 
 class Layer
@@ -6,7 +8,6 @@ class Layer
         bool _training = true;
 
     public:
-        Layer() = delete;
         virtual ~Layer() = default;
         virtual Tensor forward(const Tensor &input) = 0;
         virtual void setTraining(bool training);
