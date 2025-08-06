@@ -18,7 +18,36 @@ Tensor Tensor::identity(size_t size){
     for (size_t i = 0; i < size; i++)
         identity(i,i) = 1;
     return identity;
-} //i'll do this one when i will have element acessors.
+}
+Tensor Tensor::random_uniform(const std::vector<size_t>& shape, float min , float max, unsigned int seed) {
+    std::vector<float> data;
+    size_t total = Tensor().shapeProduct(shape);
+
+    std::mt19937 gen(seed ? seed : std::random_device{}());
+    std::uniform_real_distribution<float> dist(min, max);
+
+    data.resize(total);
+    for (size_t i = 0; i < total; ++i) {
+        data[i] = dist(gen);
+    }
+
+    return Tensor(shape, data);
+}
+
+Tensor Tensor::random_normal(const std::vector<size_t>& shape, float mean, float std, unsigned int seed) {
+    std::vector<float> data;
+    size_t total = Tensor().shapeProduct(shape);
+
+    std::mt19937 gen(seed ? seed : std::random_device{}());
+    std::normal_distribution<float> dist(mean, std);
+
+    data.resize(total);
+    for (size_t i = 0; i < total; ++i) {
+        data[i] = dist(gen);
+    }
+
+    return Tensor(shape, data);
+}
 
 
 Tensor::Tensor() : _data({}), _shape({}), _strides({}){}
