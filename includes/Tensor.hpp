@@ -90,8 +90,9 @@ public:
 
     size_t size() const;
     const std::vector<size_t> &shape() const;
-
-
+    Tensor relu() const;
+    Tensor sigmoid() const;
+    Tensor tanh() const;
 
 
     // ------------ Statics ---------------- //

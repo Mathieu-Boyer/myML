@@ -451,7 +451,6 @@ Tensor Tensor::getMatrixAtBatchOffset(const std::vector<size_t>& batchIndex) con
             batchOffset += batchIndex[i] * _strides[i];
         }
 
-    // Size of the (M x K) matrix (last two dims)
     size_t matrixSize = 1;
     for (size_t i = _shape.size() - 2 ; i < _shape.size(); i++)
         matrixSize *= _shape[i];
@@ -618,6 +617,34 @@ Tensor Tensor::abs() const {
 size_t Tensor::size() const{
     return _data.size();
 }
+
+Tensor Tensor::relu() const{
+    Tensor outTensor(*this);
+
+    for (auto &element : outTensor._data)
+        element = std::max(0.f, element);
+
+    return outTensor;
+}
+
+Tensor Tensor::sigmoid() const{
+    Tensor outTensor(*this);
+
+    for (auto &element : outTensor._data)
+        element = (1.f / (1.f + std::exp(-element)));
+
+    return outTensor;
+}
+
+Tensor Tensor::tanh() const{
+    Tensor outTensor(*this);
+
+    for (auto &element : outTensor._data)
+        element = std::tanh(element);
+
+    return outTensor;
+}
+
 
 const std::vector<size_t> &Tensor::shape() const{
     return _shape;
