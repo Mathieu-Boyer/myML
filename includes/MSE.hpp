@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Loss.hpp"
 
 class MSE : public Loss

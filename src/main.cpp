@@ -7,6 +7,7 @@
 #include "Activation.hpp"
 #include "tests.hpp"
 #include "MSE.hpp"
+#include "BCE.hpp"
 
 int main()
 {
@@ -30,5 +31,17 @@ int main()
     // for (auto &activation : activations)
     //     activation->forward(output).print();
 
+    Tensor prediction({4}, {0.9f, 0.2f, 0.1f, 0.8f});
+    Tensor target({4},     {1.0f, 0.0f, 0.0f, 1.0f});
 
+    BCE bce;
+
+    // Compute BCE loss
+    float loss = bce.compute(prediction, target);
+    std::cout << "BCE Loss: " << loss << std::endl;
+
+    // Compute BCE gradient
+    Tensor grad = bce.gradient(prediction, target);
+    std::cout << "BCE Gradient:" << std::endl;
+    grad.print();
 }
