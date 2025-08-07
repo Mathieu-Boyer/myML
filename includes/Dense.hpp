@@ -9,6 +9,10 @@ class Dense : public Layer
     private:
         Tensor _weights;
         Tensor _biases;
+
+        Tensor _WGradients;
+        Tensor _BGradients;
+
         size_t _inputSize;
         size_t _outputSize;
 
