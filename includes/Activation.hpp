@@ -20,6 +20,7 @@ public:
     Activation& operator=(const Activation& other);
 
     Tensor forward(const Tensor& input) override;
+    Tensor backward(const Tensor &outGrad) override;
     std::string getName() const;
 
     static  std::unique_ptr<Activation>relu();

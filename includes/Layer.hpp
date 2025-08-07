@@ -9,10 +9,11 @@ class Layer
 
     public:
         virtual ~Layer() = default;
-        virtual Tensor forward(const Tensor &input) = 0;
+        virtual Tensor forward(const Tensor &input) = 0 ;
+        virtual Tensor backward(const Tensor &outGrad) = 0;
         virtual void setTraining(bool training);
         virtual bool getTraining();
-
+        virtual void computeGradients(const Tensor &);
         virtual std::vector<Tensor*> getParameters();
         virtual std::vector<Tensor*> getGradients();
 };

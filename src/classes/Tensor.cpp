@@ -655,6 +655,16 @@ Tensor Tensor::tanh() const{
 }
 
 
+Tensor Tensor::d_relu() const {
+    Tensor outTensor(*this);
+
+    for (auto &element : outTensor._data)
+        element = static_cast<float>(element > 0);
+
+    return outTensor;
+}
+
+
 const std::vector<size_t> &Tensor::shape() const{
     return _shape;
 }
