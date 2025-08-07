@@ -636,6 +636,15 @@ Tensor Tensor::sigmoid() const{
     return outTensor;
 }
 
+Tensor Tensor::square() const{
+    Tensor outTensor(*this);
+
+    for (auto &element : outTensor._data)
+        element = (element * element);
+
+    return outTensor;
+}
+
 Tensor Tensor::tanh() const{
     Tensor outTensor(*this);
 
