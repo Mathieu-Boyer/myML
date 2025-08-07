@@ -23,9 +23,14 @@ Activation& Activation::operator=(const Activation& other) {
     return *this;
 }
 
+Tensor Activation::backward(const Tensor &outGrad){
+    return _activation->backward(outGrad);
+}
+
 Tensor Activation::forward(const Tensor& input) {
     return _activation->forward(input);
 }
+
 std::string Activation::getName() const {
     return _activation->getName();
 }

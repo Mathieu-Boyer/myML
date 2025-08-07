@@ -41,6 +41,7 @@ public:
     float &operator()(std::vector<size_t> indices);
     float operator()(std::vector<size_t> indices) const;
 
+
     Tensor operator+(const Tensor &rhs) const;
     Tensor operator-(const Tensor &rhs) const;
     Tensor operator*(const Tensor &rhs) const;
@@ -75,7 +76,7 @@ public:
     Tensor transpose(const std::vector<size_t> &order = {}) const;
     Tensor sum(size_t axis) const;
     Tensor mean(size_t axis) const;
-    
+
     Tensor sum() const ;
     Tensor mean() const ;
     float sumFloat() const ;
@@ -97,6 +98,7 @@ public:
     Tensor sigmoid() const;
     Tensor tanh() const;
 
+    Tensor d_relu() const;
 
     // ------------ Statics ---------------- //
     static Tensor vector(size_t size, float fill = 0.0f);

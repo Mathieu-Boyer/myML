@@ -8,6 +8,10 @@ bool Layer::getTraining() {
     return _training;
 };
 
+
+void Layer::computeGradients(const Tensor &){
+}
+
 std::vector<Tensor*> Layer::getParameters() {
     return {};
 }
